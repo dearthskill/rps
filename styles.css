@@ -1,0 +1,13 @@
+#web{
+    font-size: 36px;
+    font-weight: bold;
+}
+
+body{
+    background: grey;
+    text-align: center;
+}
+
+p{
+    font-size: 25px;
+}
