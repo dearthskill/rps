@@ -15,35 +15,38 @@ function getComputerChoice(){
 }
 
 
-function getHumanChoice(){
-    let choice = prompt("rock/paper/scissors");
-    return choice;
-};
-
-function playRound(){
+let computerScore = 0;
+let playerScore = 0;
+const rock = document.querySelector("#rock")
+const paper = document.querySelector("#paper")
+const scissors = document.querySelector("#scissors")
+const game = document.querySelector("#game")
+const result = document.querySelector("#result")
+const Cscore = document.querySelector("#Cscore")
+const Pscore = document.querySelector("#Pscore")
+function playRound(humanSelection, computerSelection){
     let msg;
     let outcome;
-    let humanSelection = getHumanChoice();
-    let computerSelection = getComputerChoice();    
-    if (humanSelection === "rock"){ 
+    if (humanSelection=="rock"){ 
         if (computerSelection == "rock"){
             msg = "It's a tie";
             outcome="tie"
         }
         else if (computerSelection =="paper"){
             msg="The computer gets a point";
-            outcome="comp"
+            computerScore+=1
         }
         else if(computerSelection=="scissors"){
             msg = "You score a point";
-            outcome ="player"
+            playerScore+=1
         }
+        result.textContent=msg;
         
     }
     if (humanSelection=="paper"){
         if(computerSelection=="rock"){
             msg ="You score a point"
-            outcome ="player"
+            playerScore+=1
         }
         else if(computerSelection=="paper"){
             msg = "It's a tie"
@@ -51,53 +54,64 @@ function playRound(){
         }
         else if(computerSelection=="scissors"){
             msg ="The computer scores a point"
-            outcome="comp"
+            computerScore+=1
         }
+        result.textContent=msg
     }
     if(humanSelection=="scissors"){
         if (computerSelection=="rock"){
             msg = "The computer scores a point"
-            outcome="comp"
+            computerScore+=1
         }
         else if(computerSelection=="paper"){
             msg = "You score a point"
-            outcome ="player"
+            playerScore+=1
         }
         else if(computerSelection=="scissors"){
             msg = "It's a tie"
             outcome="tie"
         }
-    else{
-        msg = "Please enter a valid option";
+        result.textContent = msg
     }
-
-    }
-    alert(msg);
-    return outcome;
+    Cscore.textContent = `Computer score is : ${computerScore}`;
+    Pscore.textContent = `Player score is : ${playerScore}`;
 }
 
-function playGame(){
-    let computerScore = 0;
-    let playerScore = 0;
-    for( let i =1;i<6; i++){
-        let result =playRound();
-        if (result=="player"){
-            playerScore+=1
+game.addEventListener("click", function(){
 
-        }
-        else if(result=="comp"){
-            computerScore+=1
-        }
-       console.log("Player score is "+playerScore)
-       console.log("Computer score is "+computerScore)
+
+    
+rock.addEventListener("click", function(){
+    playRound("rock", getComputerChoice());
+    resetgame();
+});
+
+paper.addEventListener("click", function(){
+    playRound("paper", getComputerChoice());
+    resetgame();
+});
+
+scissors.addEventListener("click", function(){
+     playRound("scissors", getComputerChoice());
+     resetgame();
+});
+        
+});
+
+function resetgame(){
+    if(computerScore==4){
+        result.textContent = "The computer wins the game"
+        playerScore=0;
+        computerScore=0;
         
     }
-    if(playerScore>computerScore){
-        console.log("You win the game!1")
+    else if(playerScore==4){
+        result.textContent = "The player wins the game"
+        playerScore=0;
+        computerScore=0;
+        
     }
-    else if(computerScore>playerScore){
-        console.log("The computer wins :(")
-    }
-
+    
 }
-playGame();
+
+
